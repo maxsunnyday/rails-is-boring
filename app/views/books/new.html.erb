@@ -1,0 +1,31 @@
+<h1>New Book</h1>
+
+<% if flash[:error] %>
+    <% flash[:error].each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+<% end %>
+
+<%= form_for @book do |f| %>
+    <p>
+        <%= f.label :tilte %>
+        <%= f.text_field :title %>
+    </p>
+
+    <p>
+        <%= f.label :pages %>
+        <%= f.number_field :pages %>
+    </p>
+
+    <p>Authors</p>
+
+    <div>
+        <%= f.collection_check_boxes(:author_ids, @authors, :id, :name) do |b| %>
+            <%= b.label class:"label-checkbox" do%>
+                <div><%= b.text %><%= b.check_box %></div>
+            <% end %>
+        <% end %>
+    </div>
+    <br>
+    <%= f.submit %>
+<% end %>
